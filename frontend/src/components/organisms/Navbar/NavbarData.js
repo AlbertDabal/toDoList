@@ -1,5 +1,9 @@
 import React from 'react';
-// import { MdWork, IoMdFitness, MdFolder, MdAccountBalance } from 'react-icons';
+import { MdWork, MdAccountBalance, MdFolder, MdInsertChart, MdSettings } from 'react-icons/md';
+import { IoMdFitness } from 'react-icons/io';
+import { IoCalendarSharp } from 'react-icons/io5';
+import { BiTask } from 'react-icons/bi';
+import { routes } from 'routes';
 
 const NavbarData = [
   {
@@ -7,19 +11,23 @@ const NavbarData = [
     items: [
       {
         title: 'Work',
-        // icon: <MdWork />,
+        icon: <MdWork />,
+        path: routes.work,
       },
       {
         title: 'Personal',
-        // icon: <MdAccountBalance />,
+        icon: <MdAccountBalance />,
+        path: routes.personal,
       },
       {
         title: 'Fitness',
-        // icon: <IoMdFitness />,
+        icon: <IoMdFitness />,
+        path: routes.fitness,
       },
       {
         title: 'Other tasks',
-        // icon: <MdFolder />,
+        icon: <MdFolder />,
+        path: routes.otherTask,
       },
     ],
   },
@@ -28,15 +36,23 @@ const NavbarData = [
     items: [
       {
         title: 'Statistic',
+        icon: <MdInsertChart />,
+        path: routes.statistic,
       },
       {
         title: 'Edit calendar',
+        icon: <IoCalendarSharp />,
+        path: routes.editCalendar,
       },
       {
         title: 'All tasks',
+        icon: <BiTask />,
+        path: routes.allTasks,
       },
       {
         title: 'Settings',
+        icon: <MdSettings />,
+        path: routes.settings,
       },
     ],
   },

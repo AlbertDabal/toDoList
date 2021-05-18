@@ -4,16 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-<<<<<<< HEAD
     "start": "nodemon app.js"
-=======
-    "test": "echo \"Error: no test specified\" && exit 1"
->>>>>>> 06898ed7862b8eb3654898fd15eef53927c82c07
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-<<<<<<< HEAD
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^9.0.0",
@@ -21,8 +16,5 @@
     "mongoose": "^5.12.7",
     "mongose": "^0.0.2-security",
     "nodemon": "^2.0.7"
-=======
-    "express": "^4.17.1"
->>>>>>> 06898ed7862b8eb3654898fd15eef53927c82c07
   }
 }
