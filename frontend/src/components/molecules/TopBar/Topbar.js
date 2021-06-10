@@ -38,7 +38,7 @@ const Topbar = () => {
   const location = useLocation().pathname;
   const pathName = NavbarData.map((items) => items.items.find((x) => x.path === location));
   const data = pathName.filter((items) => items);
-  console.log(data);
+
   return (
     <Wrapper>
       <WrapperLeft>

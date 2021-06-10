@@ -2,12 +2,14 @@ import styled from 'styled-components';
 
 const Button = styled.button`
   background-color: ${({ theme }) => theme.themeColor};
-  border-radius: 30px;
-  padding: 10px 55px;
+  border-radius: 40px;
+  padding: 20px 35px;
   border: none;
   font-size: ${({ theme }) => theme.fontSize.m};
-  font-weight: 700;
+  font-weight: 600;
   color: white;
+  text-transform: capitalize;
+  cursor: pointer;
 `;
 
 export default Button;

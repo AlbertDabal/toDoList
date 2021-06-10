@@ -2,8 +2,8 @@ import Alert from 'components/atoms/Alert/Alert';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import React from 'react';
 import styled from 'styled-components';
-import { RiArrowDownSLine } from 'react-icons/ri';
 import PropTypes from 'prop-types';
+import { MdCheckBoxOutlineBlank, MdMoreVert } from 'react-icons/md';
 
 const Wrapper = styled.div`
   display: flex;
@@ -21,13 +21,29 @@ const ParagraphType = styled(Paragraph)`
   font-weight: 700;
 `;
 
+const Checkbox = styled.input`
+  width: 20px;
+  height: 20px;
+`;
+
+const SvgContainer = styled.div`
+  color: ${({ theme }) => theme.secondaryColor};
+
+  > svg {
+    font-size: 27px;
+  }
+`;
+
 const ItemTask = ({ name, type, project, piority }) => (
   <Wrapper>
+    <SvgContainer>
+      <MdCheckBoxOutlineBlank />
+    </SvgContainer>
     {type ? <ParagraphType>{type}</ParagraphType> : null}
     <Paragraph style={{ width: '60%' }}>{name}</Paragraph>
     <ParagraphType style={{ width: '10%' }}>{project}</ParagraphType>
     <Alert type={piority}>{piority}</Alert>
-    <RiArrowDownSLine style={{ fontSize: '28px' }} />
+    <MdMoreVert style={{ fontSize: '28px' }} />
   </Wrapper>
 );
 
