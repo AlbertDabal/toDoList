@@ -22,3 +22,15 @@ export const AddTodo = async (name, type, project, piority) => {
 
   return res;
 };
+
+export const DoneTodo = async (id) => {
+  const res = await axios
+    .patch(`http://localhost:3000/todo/${id}`, {
+      type: false,
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+  return res;
+};

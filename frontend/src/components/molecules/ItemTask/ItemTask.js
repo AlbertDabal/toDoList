@@ -1,14 +1,18 @@
 import Alert from 'components/atoms/Alert/Alert';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { MdCheckBoxOutlineBlank, MdMoreVert } from 'react-icons/md';
+import { MdCheckBoxOutlineBlank, MdMoreVert, MdCheckBox, MdCreate, MdClear, MdUndo } from 'react-icons/md';
+import NavbarData from 'components/organisms/Navbar/NavbarData';
+import { useLocation } from 'react-router-dom';
+import { DoneTodo } from 'api/FetchTodoAll';
+import DeleteTaskModal from '../DeleteTaskModal/DeleteTaskModal';
 
 const Wrapper = styled.div`
   display: flex;
   box-shadow: 1px 1px 4px rgba(171, 171, 171, 0.77);
-  border-radius: 30px;
+  border-radius: 40px;
   height: 75px;
   align-items: center;
   justify-content: space-between;
@@ -27,25 +31,86 @@ const Checkbox = styled.input`
 `;
 
 const SvgContainer = styled.div`
-  color: ${({ theme }) => theme.secondaryColor};
+  color: ${({ theme }) => theme.textColor};
+  cursor: pointer;
 
   > svg {
-    font-size: 27px;
+    font-size: 35px;
   }
 `;
 
-const ItemTask = ({ name, type, project, piority }) => (
-  <Wrapper>
-    <SvgContainer>
-      <MdCheckBoxOutlineBlank />
-    </SvgContainer>
-    {type ? <ParagraphType>{type}</ParagraphType> : null}
-    <Paragraph style={{ width: '60%' }}>{name}</Paragraph>
-    <ParagraphType style={{ width: '10%' }}>{project}</ParagraphType>
-    <Alert type={piority}>{piority}</Alert>
-    <MdMoreVert style={{ fontSize: '28px' }} />
-  </Wrapper>
-);
+const SvgContainerEdit = styled.div`
+  color: ${({ theme }) => theme.textColor};
+  cursor: pointer;
+
+  > svg {
+    font-size: 30px;
+    margin: 10px;
+  }
+`;
+
+const WrapperLeft = styled.div`
+  display: flex;
+  align-items: center;
+`;
+const WrapperRight = styled.div`
+  display: flex;
+  align-items: center;
+  width: 30%;
+  justify-content: space-between;
+`;
+
+const StyledParagraph = styled(Paragraph)`
+  margin-left: 40px;
+  text-decoration: ${({ status }) => (status ? 'none' : 'line-through')};
+  text-decoration-thickness: 3px;
+  color: ${({ theme, status }) => (status ? 'black' : theme.textColor)};
+`;
+
+const ItemTask = ({ name, type, project, piority, status, id, setRefresh }) => {
+  const typeIcon = NavbarData[0].items.find((x) => x.type === type);
+  const location = useLocation().pathname;
+  const [isEdit, setIsEdit] = useState(false);
+  const [isDelete, setIsDelete] = useState(false);
+
+  async function Done() {
+    const res = await DoneTodo(id);
+    setRefresh(true);
+  }
+
+  return (
+    <Wrapper>
+      {isDelete && <DeleteTaskModal setIsDelete={setIsDelete} />}
+
+      <WrapperLeft>
+        {location === '/allTasks' && <SvgContainer>{typeIcon.icon}</SvgContainer>}
+        {location !== '/allTasks' && (
+          <SvgContainer>{status ? <MdCheckBoxOutlineBlank onClick={() => Done()} /> : <MdCheckBox />}</SvgContainer>
+        )}
+
+        {location !== '/allTasks' ? (
+          <StyledParagraph status={status}>{` ${name} `}</StyledParagraph>
+        ) : (
+          <StyledParagraph status>{` ${name} `}</StyledParagraph>
+        )}
+      </WrapperLeft>
+      <WrapperRight>
+        <ParagraphType>{project}</ParagraphType>
+        <Alert type={piority}>{piority}</Alert>
+        {!isEdit ? (
+          <MdMoreVert onClick={() => setIsEdit(!isEdit)} style={{ fontSize: '28px' }} />
+        ) : (
+          <SvgContainerEdit>
+            <MdClear onClick={() => setIsDelete(true)} />
+
+            <MdCreate />
+            <MdUndo onClick={() => setIsEdit(!isEdit)} />
+          </SvgContainerEdit>
+        )}
+      </WrapperRight>
+    </Wrapper>
+  );
+};
 
 export default ItemTask;
 
@@ -53,7 +118,10 @@ ItemTask.propTypes = {
   name: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   project: PropTypes.string,
+  status: PropTypes.string.isRequired,
   piority: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  setRefresh: PropTypes.func.isRequired,
 };
 
 ItemTask.defaultProps = {

@@ -6,6 +6,7 @@ const Alert = styled.h6`
   border-radius: 30px;
   padding: 15px 30px;
   font-weight:700;
+  user-select: none;
   background-color: ${({ theme }) => theme.alertColorLow};
   font-size: ${({ theme }) => theme.fontSize.s};
   text-transform:uppercase;

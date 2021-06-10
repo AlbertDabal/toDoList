@@ -10,6 +10,7 @@ const Button = styled.button`
   color: white;
   text-transform: capitalize;
   cursor: pointer;
+  user-select: none;
 `;
 
 export default Button;
