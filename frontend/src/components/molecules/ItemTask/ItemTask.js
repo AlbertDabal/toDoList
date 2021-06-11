@@ -83,7 +83,7 @@ const ItemTask = ({ name, type, project, piority, status, id, setRefresh }) => {
   return (
     <Wrapper>
       {isDelete && <DeleteTaskModal id={id} setRefresh={setRefresh} setIsDelete={setIsDelete} />}
-      {isEdit && <EditTaskModal name={name} />}
+      {isEdit && <EditTaskModal name={name} piorityValue={piority} setIsEdit={setIsEdit} />}
 
       <WrapperLeft>
         {location === '/allTasks' && <SvgContainer>{typeIcon.icon}</SvgContainer>}

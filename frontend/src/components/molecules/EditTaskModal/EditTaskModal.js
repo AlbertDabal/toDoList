@@ -82,15 +82,16 @@ const StyledAlert = styled(Alert)`
   background-color: ${({ clicked }) => (clicked ? '#008cc8' : '#008cc899')};
 `;
 
-const EditTaskModal = ({ Open, data, setRefresh }) => {
+const EditTaskModal = ({ name, Open, data, setRefresh, piorityValue, setIsEdit }) => {
   const [selectedProject, setSelectedProject] = useState(null);
-  const [piority, setPiority] = useState('low');
+  const [piority, setPiority] = useState(piorityValue);
   const location = useLocation().pathname;
+  const [valueName, setValueName] = useState(name);
 
   async function handleSubmit(e) {
     e.preventDefault();
 
-    const name = e.target[0].value;
+    // const name = e.target[0].value;
     const project = e.target[1].value;
     const type = location.substring(1);
 
@@ -103,6 +104,10 @@ const EditTaskModal = ({ Open, data, setRefresh }) => {
 
   function handleChangeProject(event) {
     setSelectedProject(event.target.value);
+  }
+
+  function onTodoChange(value) {
+    setValueName(value);
   }
 
   const optionsPiority = ['low', 'medium', 'high'];
@@ -120,7 +125,7 @@ const EditTaskModal = ({ Open, data, setRefresh }) => {
               </StyledAlert>
             ))}
           </WrapperAlert>
-          <Input name="name" placeholder="Name task" />
+          <Input name="name" onChange={(e) => onTodoChange(e.target.value)} placeholder="Name task" value={valueName} />
 
           {/* <Select value={selectedProject} onChange={handleChangeProject}>
             <option value="" disabled selected>
@@ -135,7 +140,7 @@ const EditTaskModal = ({ Open, data, setRefresh }) => {
 
           <WrapperButton>
             <Button type="submit">add task</Button>
-            <StyledParagraph onClick={() => Open(false)}>Return</StyledParagraph>
+            <StyledParagraph onClick={() => setIsEdit(false)}>Return</StyledParagraph>
           </WrapperButton>
         </Form>
       </Modal>
@@ -146,7 +151,10 @@ const EditTaskModal = ({ Open, data, setRefresh }) => {
 EditTaskModal.propTypes = {
   Open: PropTypes.func.isRequired,
   setRefresh: PropTypes.func.isRequired,
+  setIsEdit: PropTypes.func.isRequired,
   data: PropTypes.element.isRequired,
+  name: PropTypes.element.isRequired,
+  piorityValue: PropTypes.element.isRequired,
 };
 
 export default EditTaskModal;
