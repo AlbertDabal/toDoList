@@ -48,7 +48,7 @@ const WrapperTest = styled.div`
 
 const Select = ({ data, setSelectedProject }) => {
   const node = useRef();
-
+  const [result, setResult] = useState(data);
   const [open, setOpen] = useState(false);
   const [valueName, setValueName] = useState(null);
 
@@ -76,11 +76,8 @@ const Select = ({ data, setSelectedProject }) => {
   function onTodoChange(value) {
     setValueName(value);
     setSelectedProject(value);
+    setResult(data.filter((items) => items.project.indexOf(value) === 0));
   }
-
-  const results = !valueName
-    ? data
-    : data.filter((person) => person.toLowerCase().includes(valueName.toLocaleLowerCase()));
 
   return (
     <Wrapper ref={node}>
@@ -94,7 +91,7 @@ const Select = ({ data, setSelectedProject }) => {
       />
       {open && (
         <WrapperTest>
-          {data.map((items) => (
+          {result.map((items) => (
             <Paragraph onClick={(e) => handleChange(items.project)}>{items.project}</Paragraph>
           ))}
         </WrapperTest>
