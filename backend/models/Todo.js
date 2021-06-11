@@ -9,6 +9,7 @@ const TodoSchema = mongoose.Schema({
   type: String,
   project: String,
   piority: String,
+  date: Date,
 });
 
 module.exports = mongoose.model("todo", TodoSchema);

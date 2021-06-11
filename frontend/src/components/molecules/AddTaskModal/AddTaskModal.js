@@ -9,6 +9,8 @@ import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import { AddTodo } from 'api/FetchTodoAll';
 import { useLocation } from 'react-router-dom';
 import Select from 'components/atoms/Select/Select';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const Wrapper = styled.div`
   position: absolute;
@@ -77,6 +79,7 @@ const AddTaskModal = ({ Open, data, setRefresh }) => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [piority, setPiority] = useState('low');
   const location = useLocation().pathname;
+  const [startDate, setStartDate] = useState(new Date());
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -117,6 +120,7 @@ const AddTaskModal = ({ Open, data, setRefresh }) => {
           <Input name="name" autoComplete="off" placeholder="Name task" />
 
           <Select data={uniq} setSelectedProject={setSelectedProject} />
+          <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
 
           {/* <Select value={selectedProject} onChange={handleChangeProject}>
             <option value="" disabled selected>

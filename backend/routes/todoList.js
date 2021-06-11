@@ -11,12 +11,22 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/today", async (req, res) => {
+  try {
+    const todosToday = await Todo.find();
+    res.json(todosToday);
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
+
 router.post("/", async (req, res) => {
   const todo = new Todo({
     name: req.body.name,
     type: req.body.type,
     project: req.body.project,
     piority: req.body.piority,
+    date: Date.now(),
   });
   try {
     const savedTodo = await todo.save();
