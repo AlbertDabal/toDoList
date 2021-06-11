@@ -8,6 +8,7 @@ import Alert from 'components/atoms/Alert/Alert';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import { AddTodo } from 'api/FetchTodoAll';
 import { useLocation } from 'react-router-dom';
+import Select from 'components/atoms/Select/Select';
 
 const Wrapper = styled.div`
   position: absolute;
@@ -38,16 +39,6 @@ const Modal = styled.div`
   flex-direction: column;
   justify-content: space-between;
   padding: 30px;
-`;
-
-const Select = styled.select`
-  font-size: ${({ theme }) => theme.fontSize.s};
-  border: none;
-  border-bottom: 0.5px solid rgba(0, 0, 0, 0.3);
-  padding: 5px 10px;
-  outline: none;
-  width: 100%;
-  margin-bottom: 20px;
 `;
 
 const StyledParagraph = styled(Paragraph)`
@@ -91,10 +82,10 @@ const AddTaskModal = ({ Open, data, setRefresh }) => {
     e.preventDefault();
 
     const name = e.target[0].value;
-    const project = e.target[1].value;
+
     const type = location.substring(1);
 
-    const res = await AddTodo(name, type, project, piority);
+    const res = await AddTodo(name, type, selectedProject, piority);
     Open(false);
     setRefresh(true);
 
@@ -122,9 +113,12 @@ const AddTaskModal = ({ Open, data, setRefresh }) => {
               </StyledAlert>
             ))}
           </WrapperAlert>
-          <Input name="name" placeholder="Name task" />
 
-          <Select value={selectedProject} onChange={handleChangeProject}>
+          <Input name="name" autoComplete="off" placeholder="Name task" />
+
+          <Select data={uniq} setSelectedProject={setSelectedProject} />
+
+          {/* <Select value={selectedProject} onChange={handleChangeProject}>
             <option value="" disabled selected>
               Choose project
             </option>
@@ -133,7 +127,7 @@ const AddTaskModal = ({ Open, data, setRefresh }) => {
             ))}
 
             <input type="text" name="text" />
-          </Select>
+          </Select> */}
 
           <WrapperButton>
             <Button type="submit">add task</Button>
