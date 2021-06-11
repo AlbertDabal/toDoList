@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Alert from 'components/atoms/Alert/Alert';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
-import { AddTodo } from 'api/FetchTodoAll';
+import { AddTodo, EditTodo } from 'api/FetchTodoAll';
 import { useLocation } from 'react-router-dom';
 
 const Wrapper = styled.div`
@@ -82,7 +82,7 @@ const StyledAlert = styled(Alert)`
   background-color: ${({ clicked }) => (clicked ? '#008cc8' : '#008cc899')};
 `;
 
-const EditTaskModal = ({ name, Open, data, setRefresh, piorityValue, setIsEdit }) => {
+const EditTaskModal = ({ name, Open, data, setRefresh, piorityValue, setIsEdit, setIsOption, id }) => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [piority, setPiority] = useState(piorityValue);
   const location = useLocation().pathname;
@@ -91,12 +91,10 @@ const EditTaskModal = ({ name, Open, data, setRefresh, piorityValue, setIsEdit }
   async function handleSubmit(e) {
     e.preventDefault();
 
-    // const name = e.target[0].value;
-    const project = e.target[1].value;
-    const type = location.substring(1);
+    const res = await EditTodo(id, valueName, piority);
 
-    const res = await AddTodo(name, type, project, piority);
-    Open(false);
+    setIsEdit(false);
+    setIsOption(false);
     setRefresh(true);
 
     return res;
@@ -139,7 +137,7 @@ const EditTaskModal = ({ name, Open, data, setRefresh, piorityValue, setIsEdit }
           </Select> */}
 
           <WrapperButton>
-            <Button type="submit">add task</Button>
+            <Button type="submit">edit task</Button>
             <StyledParagraph onClick={() => setIsEdit(false)}>Return</StyledParagraph>
           </WrapperButton>
         </Form>
@@ -150,11 +148,13 @@ const EditTaskModal = ({ name, Open, data, setRefresh, piorityValue, setIsEdit }
 
 EditTaskModal.propTypes = {
   Open: PropTypes.func.isRequired,
+  setIsOption: PropTypes.func.isRequired,
   setRefresh: PropTypes.func.isRequired,
   setIsEdit: PropTypes.func.isRequired,
   data: PropTypes.element.isRequired,
   name: PropTypes.element.isRequired,
   piorityValue: PropTypes.element.isRequired,
+  id: PropTypes.element.isRequired,
 };
 
 export default EditTaskModal;

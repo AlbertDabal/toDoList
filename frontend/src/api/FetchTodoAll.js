@@ -43,6 +43,11 @@ export const DelateTodo = async (id) => {
     .catch((error) => {
       console.log(error);
     });
-
   return res;
+};
+
+export const EditTodo = async (id, name, piority) => {
+  const res = await axios.patch(`http://localhost:3000/todo/edit/${id}`, { name, piority }).catch((error) => {
+    console.log(error);
+  });
 };
