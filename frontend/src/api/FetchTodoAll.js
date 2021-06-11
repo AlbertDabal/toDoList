@@ -34,3 +34,15 @@ export const DoneTodo = async (id) => {
 
   return res;
 };
+
+export const DelateTodo = async (id) => {
+  const res = await axios
+    .delete(`http://localhost:3000/todo/${id}`, {
+      type: false,
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+  return res;
+};

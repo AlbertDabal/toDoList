@@ -8,6 +8,7 @@ import NavbarData from 'components/organisms/Navbar/NavbarData';
 import { useLocation } from 'react-router-dom';
 import { DoneTodo } from 'api/FetchTodoAll';
 import DeleteTaskModal from '../DeleteTaskModal/DeleteTaskModal';
+import EditTaskModal from '../EditTaskModal/EditTaskModal';
 
 const Wrapper = styled.div`
   display: flex;
@@ -70,8 +71,9 @@ const StyledParagraph = styled(Paragraph)`
 const ItemTask = ({ name, type, project, piority, status, id, setRefresh }) => {
   const typeIcon = NavbarData[0].items.find((x) => x.type === type);
   const location = useLocation().pathname;
-  const [isEdit, setIsEdit] = useState(false);
+  const [isOption, setIsOption] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
 
   async function Done() {
     const res = await DoneTodo(id);
@@ -80,7 +82,8 @@ const ItemTask = ({ name, type, project, piority, status, id, setRefresh }) => {
 
   return (
     <Wrapper>
-      {isDelete && <DeleteTaskModal setIsDelete={setIsDelete} />}
+      {isDelete && <DeleteTaskModal id={id} setRefresh={setRefresh} setIsDelete={setIsDelete} />}
+      {isEdit && <EditTaskModal name={name} />}
 
       <WrapperLeft>
         {location === '/allTasks' && <SvgContainer>{typeIcon.icon}</SvgContainer>}
@@ -97,14 +100,14 @@ const ItemTask = ({ name, type, project, piority, status, id, setRefresh }) => {
       <WrapperRight>
         <ParagraphType>{project}</ParagraphType>
         <Alert type={piority}>{piority}</Alert>
-        {!isEdit ? (
-          <MdMoreVert onClick={() => setIsEdit(!isEdit)} style={{ fontSize: '28px' }} />
+        {!isOption ? (
+          <MdMoreVert onClick={() => setIsOption(!isOption)} style={{ fontSize: '28px', cursor: 'pointer' }} />
         ) : (
           <SvgContainerEdit>
             <MdClear onClick={() => setIsDelete(true)} />
 
-            <MdCreate />
-            <MdUndo onClick={() => setIsEdit(!isEdit)} />
+            <MdCreate onClick={() => setIsEdit(true)} />
+            <MdUndo onClick={() => setIsOption(!isOption)} />
           </SvgContainerEdit>
         )}
       </WrapperRight>

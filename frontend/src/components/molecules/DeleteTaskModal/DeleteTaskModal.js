@@ -4,6 +4,7 @@ import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { DelateTodo } from 'api/FetchTodoAll';
 
 const Wrapper = styled.div`
   position: absolute;
@@ -44,21 +45,30 @@ const StyledParagraph = styled(Paragraph)`
   cursor: pointer;
 `;
 
-const DeleteTaskModal = ({ setIsDelete }) => (
-  <Wrapper>
-    <Modal>
-      <Heading>Are you sure you want to delete the task?</Heading>
+const DeleteTaskModal = ({ setIsDelete, id, setRefresh }) => {
+  async function Delete() {
+    const res = await DelateTodo(id);
+    setIsDelete(false);
+    setRefresh(true);
+  }
+  return (
+    <Wrapper>
+      <Modal>
+        <Heading>Are you sure you want to delete the task?</Heading>
 
-      <WrapperButton>
-        <Button type="submit">Delete task</Button>
-        <StyledParagraph onClick={() => setIsDelete(false)}>Return</StyledParagraph>
-      </WrapperButton>
-    </Modal>
-  </Wrapper>
-);
+        <WrapperButton>
+          <Button onClick={() => Delete()}>Delete task</Button>
+          <StyledParagraph onClick={() => setIsDelete(false)}>Return</StyledParagraph>
+        </WrapperButton>
+      </Modal>
+    </Wrapper>
+  );
+};
 
 export default DeleteTaskModal;
 
 DeleteTaskModal.propTypes = {
   setIsDelete: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
+  setRefresh: PropTypes.func.isRequired,
 };

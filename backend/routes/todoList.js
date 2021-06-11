@@ -47,4 +47,13 @@ router.patch("/:todoId", async (req, res) => {
   }
 });
 
+router.delete("/:todoId", async (req, res) => {
+  try {
+    const DeleteTodo = await Todo.deleteOne({ _id: req.params.todoId });
+    res.json(DeleteTodo);
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
+
 module.exports = router;
