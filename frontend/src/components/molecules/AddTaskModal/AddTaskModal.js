@@ -3,14 +3,16 @@ import Heading from 'components/atoms/Heading/Heading';
 import { Input } from 'components/atoms/Input/Input';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import styled from 'styled-components';
+
 import Alert from 'components/atoms/Alert/Alert';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import { AddTodo } from 'api/FetchTodoAll';
 import { useLocation } from 'react-router-dom';
+import DateFnsUtils from '@date-io/date-fns';
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import Select from 'components/atoms/Select/Select';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+import { createMuiTheme } from '@material-ui/core/styles';
+import styled, { ThemeProvider } from 'styled-components';
 
 const Wrapper = styled.div`
   position: absolute;
@@ -37,7 +39,7 @@ const Modal = styled.div`
   background-color: white;
   border-radius: 30px;
   width: 30%;
-  height: 50%;
+  height: 60%;
   flex-direction: column;
   justify-content: space-between;
   padding: 30px;
@@ -69,6 +71,26 @@ const WrapperAlert = styled.div`
   }
 `;
 
+const KeyboardDatePickerStyled = styled(KeyboardDatePicker)`
+  margin: 0;
+  padding: 0;
+  > div > input {
+    margin-left: 15px;
+    font-size: ${({ theme }) => theme.fontSize.s};
+  }
+
+  > div > div > button > span > svg {
+    font-size: 25px;
+  }
+`;
+
+const ParagraphError = styled(Paragraph)`
+  color: red;
+  font-weight: 500;
+  margin-left: 15px;
+  font-size: 12px;
+`;
+
 const StyledAlert = styled(Alert)`
   cursor: pointer;
   margin-right: 5px;
@@ -79,21 +101,31 @@ const AddTaskModal = ({ Open, data, setRefresh }) => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [piority, setPiority] = useState('low');
   const location = useLocation().pathname;
-  const [startDate, setStartDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [error, setError] = useState(false);
 
+  // eslint-disable-next-line consistent-return
   async function handleSubmit(e) {
     e.preventDefault();
 
     const name = e.target[0].value;
 
-    const type = location.substring(1);
+    if (name === null || selectedProject === null || selectedDate === null) {
+      setError(true);
+    } else {
+      const type = location.substring(1);
 
-    const res = await AddTodo(name, type, selectedProject, piority);
-    Open(false);
-    setRefresh(true);
+      const res = await AddTodo(name, type, selectedProject, piority, selectedDate);
+      Open(false);
+      setRefresh(true);
 
-    return res;
+      return res;
+    }
   }
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
 
   function handleChangeProject(event) {
     setSelectedProject(event.target.value);
@@ -120,18 +152,20 @@ const AddTaskModal = ({ Open, data, setRefresh }) => {
           <Input name="name" autoComplete="off" placeholder="Name task" />
 
           <Select data={uniq} setSelectedProject={setSelectedProject} />
-          <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
 
-          {/* <Select value={selectedProject} onChange={handleChangeProject}>
-            <option value="" disabled selected>
-              Choose project
-            </option>
-            {uniq.map((item) => (
-              <option value={item.project}>{item.project}</option>
-            ))}
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <KeyboardDatePickerStyled
+              keyboardIconProps={{ fontSize: '100px' }}
+              disableToolbar
+              variant="inline"
+              format="MM/dd/yyyy"
+              id="date-picker-inline"
+              value={selectedDate}
+              onChange={handleDateChange}
+            />
+          </MuiPickersUtilsProvider>
 
-            <input type="text" name="text" />
-          </Select> */}
+          <ParagraphError>{error ? 'Wypełnij wszystkie pola w formularzu' : ' '}</ParagraphError>
 
           <WrapperButton>
             <Button type="submit">add task</Button>

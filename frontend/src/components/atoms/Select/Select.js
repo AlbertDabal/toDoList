@@ -10,7 +10,6 @@ const Wrapper = styled.div`
 
   outline: none;
   width: 100%;
-  margin-bottom: 20px;
 `;
 
 const WrapperTest = styled.div`

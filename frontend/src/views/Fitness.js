@@ -2,8 +2,8 @@ import React from 'react';
 import { ListTasks } from 'components/organisms/ListTasks/ListTasks';
 import { DashboardTemplate } from '../template/DashboardTemplate';
 
-export const Work = () => (
+export const Fitness = () => (
   <DashboardTemplate>
-    <ListTasks type="work" />
+    <ListTasks type="fitness" />
   </DashboardTemplate>
 );

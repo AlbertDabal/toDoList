@@ -9,6 +9,8 @@ import { Home } from 'views/Home';
 import { Work } from 'views/Work';
 import { AllTasks } from './AllTasks';
 import { Personal } from './Personal';
+import { Fitness } from './Fitness';
+import { OtherTask } from './OtherTask';
 
 const Root = () => (
   <ThemeProvider theme={theme}>
@@ -19,7 +21,8 @@ const Root = () => (
         <Route exact path={routes.dashboard} component={Home} />
         <Route exact path={routes.work} component={Work} />
         <Route exact path={routes.personal} component={Personal} />
-
+        <Route exact path={routes.fitness} component={Fitness} />
+        <Route exact path={routes.otherTask} component={OtherTask} />
         <Route exact path={routes.allTasks} component={AllTasks} />
       </Switch>
     </Router>

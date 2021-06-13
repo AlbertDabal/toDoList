@@ -11,9 +11,16 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/today", async (req, res) => {
+router.get("/today/:day", async (req, res) => {
+  var tomorrow = new Date(req.params.day);
+  tomorrow.setDate(tomorrow.getDate() + 1);
   try {
-    const todosToday = await Todo.find();
+    const todosToday = await Todo.find({
+      date: {
+        $gte: new Date(req.params.day),
+        $lt: tomorrow,
+      },
+    });
     res.json(todosToday);
   } catch (err) {
     res.json({ message: err });
@@ -26,7 +33,7 @@ router.post("/", async (req, res) => {
     type: req.body.type,
     project: req.body.project,
     piority: req.body.piority,
-    date: Date.now(),
+    date: req.body.date,
   });
   try {
     const savedTodo = await todo.save();
