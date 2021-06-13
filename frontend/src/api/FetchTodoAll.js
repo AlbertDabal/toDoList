@@ -8,12 +8,27 @@ export const SetTodo = async () => {
   return res;
 };
 
-export const AddTodo = async (name, type, project, piority, date) => {
+export const AddTodoWork = async (name, type, project, piority, date) => {
   const res = await axios
     .post('http://localhost:3000/todo', {
       name,
       type,
       project,
+      piority,
+      date,
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+  return res;
+};
+
+export const AddTodo = async (name, type, piority, date) => {
+  const res = await axios
+    .post('http://localhost:3000/todo', {
+      name,
+      type,
       piority,
       date,
     })

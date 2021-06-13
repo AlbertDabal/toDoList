@@ -20,9 +20,11 @@ const Header = styled.div`
   justify-content: space-between;
 `;
 
+const Main = styled.div``;
+
 const Wrapper = styled.div`
   overflow-y: scroll;
-  height: 70vh;
+  height: 68vh;
   padding-top: 10px;
 
   ::-webkit-scrollbar-track {
@@ -80,7 +82,7 @@ export const ListTasks = ({ type }) => {
   };
 
   return (
-    <Wrapper>
+    <Main>
       <Header>
         <HeadingMotivation>Just do it Mark...</HeadingMotivation>
         <Button onClick={() => setIsOpen(true)}>add task</Button>
@@ -97,7 +99,7 @@ export const ListTasks = ({ type }) => {
         />
       </MuiPickersUtilsProvider>
       <Wrapper>
-        {isOpen && <AddTaskModal setRefresh={setRefresh} data={data} Open={setIsOpen} />}
+        {isOpen && <AddTaskModal typeTask={type} setRefresh={setRefresh} data={data} Open={setIsOpen} />}
         {data
           ? data.map((items) => (
               // eslint-disable-next-line react/jsx-indent
@@ -114,7 +116,7 @@ export const ListTasks = ({ type }) => {
             ))
           : null}
       </Wrapper>
-    </Wrapper>
+    </Main>
   );
 };
 

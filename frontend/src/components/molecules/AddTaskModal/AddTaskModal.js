@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 
 import Alert from 'components/atoms/Alert/Alert';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
-import { AddTodo } from 'api/FetchTodoAll';
+import { AddTodoWork, AddTodo } from 'api/FetchTodoAll';
 import { useLocation } from 'react-router-dom';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
@@ -97,7 +97,7 @@ const StyledAlert = styled(Alert)`
   background-color: ${({ clicked }) => (clicked ? '#008cc8' : '#008cc899')};
 `;
 
-const AddTaskModal = ({ Open, data, setRefresh }) => {
+const AddTaskModal = ({ Open, data, setRefresh, typeTask }) => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [piority, setPiority] = useState('low');
   const location = useLocation().pathname;
@@ -107,15 +107,26 @@ const AddTaskModal = ({ Open, data, setRefresh }) => {
   // eslint-disable-next-line consistent-return
   async function handleSubmit(e) {
     e.preventDefault();
-
     const name = e.target[0].value;
 
-    if (name === null || selectedProject === null || selectedDate === null) {
+    if (typeTask === 'work') {
+      if (name === null || selectedProject === null || selectedDate === null) {
+        setError(true);
+      } else {
+        const type = location.substring(1);
+
+        const res = await AddTodoWork(name, type, selectedProject, piority, selectedDate);
+        Open(false);
+        setRefresh(true);
+
+        return res;
+      }
+    } else if (name === null || selectedDate === null) {
       setError(true);
     } else {
       const type = location.substring(1);
 
-      const res = await AddTodo(name, type, selectedProject, piority, selectedDate);
+      const res = await AddTodo(name, type, piority, selectedDate);
       Open(false);
       setRefresh(true);
 
@@ -150,8 +161,7 @@ const AddTaskModal = ({ Open, data, setRefresh }) => {
           </WrapperAlert>
 
           <Input name="name" autoComplete="off" placeholder="Name task" />
-
-          <Select data={uniq} setSelectedProject={setSelectedProject} />
+          {typeTask === 'work' && <Select data={uniq} setSelectedProject={setSelectedProject} />}
 
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardDatePickerStyled
@@ -181,6 +191,7 @@ AddTaskModal.propTypes = {
   Open: PropTypes.func.isRequired,
   setRefresh: PropTypes.func.isRequired,
   data: PropTypes.element.isRequired,
+  typeTask: PropTypes.string.isRequired,
 };
 
 export default AddTaskModal;
