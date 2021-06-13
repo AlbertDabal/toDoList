@@ -19,6 +19,7 @@ export const AllTasks = () => {
 
   return (
     <DashboardTemplate>
+      {console.log(data)}
       {data
         ? data.map((items) => (
             // eslint-disable-next-line react/jsx-indent
