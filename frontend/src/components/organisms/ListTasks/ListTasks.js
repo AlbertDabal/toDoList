@@ -14,18 +14,23 @@ import PropTypes from 'prop-types';
 const HeadingMotivation = styled(Heading)``;
 
 const Header = styled.div`
+  padding: 20px 20px;
   display: flex;
-  padding: 20px 0;
   align-items: center;
   justify-content: space-between;
+  background-color: white;
+  box-shadow: 1px 1px 4px rgba(170, 170, 170, 0.64);
 `;
 
 const Main = styled.div``;
 
 const Wrapper = styled.div`
-  overflow-y: scroll;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  display: flex;
   height: 68vh;
-  padding-top: 10px;
+
+  padding-top: 30px;
 
   ::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
@@ -84,20 +89,20 @@ export const ListTasks = ({ type }) => {
   return (
     <Main>
       <Header>
-        <HeadingMotivation>Just do it Mark...</HeadingMotivation>
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <KeyboardDatePickerStyled
+            keyboardIconProps={{ fontSize: '100px' }}
+            disableToolbar
+            variant="inline"
+            format="MM/dd/yyyy"
+            id="date-picker-inline"
+            value={selectedDate}
+            onChange={handleDateChange}
+          />
+        </MuiPickersUtilsProvider>
         <Button onClick={() => setIsOpen(true)}>add task</Button>
       </Header>
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <KeyboardDatePickerStyled
-          keyboardIconProps={{ fontSize: '100px' }}
-          disableToolbar
-          variant="inline"
-          format="MM/dd/yyyy"
-          id="date-picker-inline"
-          value={selectedDate}
-          onChange={handleDateChange}
-        />
-      </MuiPickersUtilsProvider>
+
       <Wrapper>
         {isOpen && <AddTaskModal typeTask={type} setRefresh={setRefresh} data={data} Open={setIsOpen} />}
         {data

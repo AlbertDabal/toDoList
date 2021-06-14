@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 
 const Wrapper = styled.div`
-  padding: 60px 0px;
+  padding: 40px 0px;
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -21,7 +21,7 @@ const WrapperRight = styled.div`
 `;
 
 const SvgContainer = styled.div`
-  color: ${({ theme }) => theme.secondaryColor};
+  color: black;
 
   > svg {
     font-size: 36px;
@@ -30,23 +30,20 @@ const SvgContainer = styled.div`
   }
 `;
 
-const StyledHeading = styled(Heading)`
-  color: ${({ theme }) => theme.secondaryColor};
-`;
-
 const Topbar = () => {
   const location = useLocation().pathname;
-  const pathName = NavbarData.map((items) => items.items.find((x) => x.path === location));
-  const data = pathName.filter((items) => items);
+  const pathName = NavbarData.find((x) => x.path === location);
+  console.log(pathName);
+  // const data = pathName.filter((items) => items);
 
   return (
     <Wrapper>
       <WrapperLeft>
-        <SvgContainer>{data[0].icon}</SvgContainer>
-        <StyledHeading>{data[0].title}</StyledHeading>
+        <SvgContainer>{pathName.icon}</SvgContainer>
+        <Heading>{pathName.title}</Heading>
       </WrapperLeft>
       <WrapperRight>
-        <Heading>This week task done 0</Heading>
+        <Heading>Marek Kowalski</Heading>
       </WrapperRight>
     </Wrapper>
   );

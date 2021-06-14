@@ -12,18 +12,22 @@ import EditTaskModal from '../EditTaskModal/EditTaskModal';
 
 const Wrapper = styled.div`
   display: flex;
-  box-shadow: 1px 1px 4px rgba(171, 171, 171, 0.77);
-  border-radius: 40px;
-  height: 75px;
-  align-items: center;
+  box-shadow: 1px 1px 4px rgba(170, 170, 170, 0.64);
+  flex-direction: column;
+  background-color: white;
+  width: 32%;
   justify-content: space-between;
-  padding: 0px 40px;
-  margin-bottom: 20px;
+  flex-direction: column;
+  height: 50%;
+  padding: 30px;
+
+  margin-bottom: 10px;
 `;
 
 const ParagraphType = styled(Paragraph)`
   color: ${({ theme }) => theme.textColor};
   font-weight: 700;
+  text-transform: capitalize;
 `;
 
 const Checkbox = styled.input`
@@ -46,30 +50,47 @@ const SvgContainerEdit = styled.div`
 
   > svg {
     font-size: 30px;
-    margin: 10px;
+    margin: 0 10px;
   }
 `;
 
-const WrapperLeft = styled.div`
+const WrapperMid = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+`;
+
+const WrapperTop = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
 `;
 const WrapperRight = styled.div`
   display: flex;
   align-items: center;
-  width: 30%;
+
   justify-content: space-between;
 `;
 
 const StyledParagraph = styled(Paragraph)`
-  margin-left: 40px;
+  text-decoration: ${({ status }) => (status ? 'none' : 'line-through')};
+  text-decoration-thickness: 3px;
+  color: #9d9d9d;
+`;
+
+const StyledHeader = styled(Paragraph)`
+  margin-bottom: 30px;
+  font-weight: 700;
+  text-transform: capitalize;
   text-decoration: ${({ status }) => (status ? 'none' : 'line-through')};
   text-decoration-thickness: 3px;
   color: ${({ theme, status }) => (status ? 'black' : theme.textColor)};
 `;
 
 const ItemTask = ({ name, type, project, piority, status, id, setRefresh }) => {
-  const typeIcon = NavbarData[0].items.find((x) => x.type === type);
+  const typeIcon = NavbarData.find((x) => x.type === type);
+  console.log(typeIcon);
   const location = useLocation().pathname;
   const [isOption, setIsOption] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
@@ -94,21 +115,12 @@ const ItemTask = ({ name, type, project, piority, status, id, setRefresh }) => {
         />
       )}
 
-      <WrapperLeft>
-        {location === '/allTasks' && <SvgContainer>{typeIcon.icon}</SvgContainer>}
+      <WrapperTop>
+        {/* {location === '/allTasks' && <SvgContainer>{typeIcon.icon}</SvgContainer>} */}
         {location !== '/allTasks' && (
           <SvgContainer>{status ? <MdCheckBoxOutlineBlank onClick={() => Done()} /> : <MdCheckBox />}</SvgContainer>
         )}
 
-        {location !== '/allTasks' ? (
-          <StyledParagraph status={status}>{` ${name} `}</StyledParagraph>
-        ) : (
-          <StyledParagraph status>{` ${name} `}</StyledParagraph>
-        )}
-      </WrapperLeft>
-      <WrapperRight>
-        <ParagraphType>{project}</ParagraphType>
-        <Alert type={piority}>{piority}</Alert>
         {!isOption ? (
           <MdMoreVert onClick={() => setIsOption(!isOption)} style={{ fontSize: '28px', cursor: 'pointer' }} />
         ) : (
@@ -119,6 +131,20 @@ const ItemTask = ({ name, type, project, piority, status, id, setRefresh }) => {
             <MdUndo onClick={() => setIsOption(!isOption)} />
           </SvgContainerEdit>
         )}
+      </WrapperTop>
+      <WrapperMid>
+        {location !== '/allTasks' ? (
+          <StyledHeader status={status}>{` ${name} `}</StyledHeader>
+        ) : (
+          <StyledHeader status>{` ${name} `}</StyledHeader>
+        )}
+        <StyledParagraph status>
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+        </StyledParagraph>
+      </WrapperMid>
+      <WrapperRight>
+        <ParagraphType>{project}</ParagraphType>
+        <Alert type={piority}>{piority}</Alert>
       </WrapperRight>
     </Wrapper>
   );

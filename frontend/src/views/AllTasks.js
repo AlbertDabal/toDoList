@@ -6,9 +6,13 @@ import styled from 'styled-components';
 import { DashboardTemplate } from '../template/DashboardTemplate';
 
 const Wrapper = styled.div`
-  overflow-y: scroll;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  display: flex;
   height: 80vh;
-  padding-top: 10px;
+  overflow-y: scroll;
+
+  padding-top: 30px;
 
   ::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);

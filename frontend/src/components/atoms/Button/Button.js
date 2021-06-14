@@ -2,8 +2,7 @@ import styled from 'styled-components';
 
 const Button = styled.button`
   background-color: ${({ theme }) => theme.themeColor};
-  border-radius: 40px;
-  padding: 20px 35px;
+  padding: 20px 60px;
   border: none;
   font-size: ${({ theme }) => theme.fontSize.m};
   font-weight: 600;
@@ -11,6 +10,7 @@ const Button = styled.button`
   text-transform: capitalize;
   cursor: pointer;
   user-select: none;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `;
 
 export default Button;
