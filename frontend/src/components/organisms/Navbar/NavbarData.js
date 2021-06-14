@@ -28,7 +28,7 @@ const NavbarData = [
     title: 'Other',
     icon: <MdFolder />,
     path: routes.otherTask,
-    type: 'otherTask ',
+    type: 'otherTask',
   },
 
   {

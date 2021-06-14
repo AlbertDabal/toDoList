@@ -90,7 +90,6 @@ const StyledHeader = styled(Paragraph)`
 
 const ItemTask = ({ name, type, project, piority, status, id, setRefresh }) => {
   const typeIcon = NavbarData.find((x) => x.type === type);
-  console.log(typeIcon);
   const location = useLocation().pathname;
   const [isOption, setIsOption] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
@@ -116,7 +115,8 @@ const ItemTask = ({ name, type, project, piority, status, id, setRefresh }) => {
       )}
 
       <WrapperTop>
-        {/* {location === '/allTasks' && <SvgContainer>{typeIcon.icon}</SvgContainer>} */}
+        {console.log(typeIcon)}
+        {location === '/allTasks' && <SvgContainer>{typeIcon.icon}</SvgContainer>}
         {location !== '/allTasks' && (
           <SvgContainer>{status ? <MdCheckBoxOutlineBlank onClick={() => Done()} /> : <MdCheckBox />}</SvgContainer>
         )}
