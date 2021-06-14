@@ -13,6 +13,7 @@ import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/picker
 import Select from 'components/atoms/Select/Select';
 import { createMuiTheme } from '@material-ui/core/styles';
 import styled, { ThemeProvider } from 'styled-components';
+import { TextArea } from 'components/atoms/TextArea/TextArea';
 
 const Wrapper = styled.div`
   position: absolute;
@@ -25,6 +26,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   padding-bottom: 80px;
+  z-index: 999;
 `;
 
 const Form = styled.form`
@@ -37,8 +39,7 @@ const Form = styled.form`
 const Modal = styled.div`
   display: flex;
   background-color: white;
-  border-radius: 30px;
-  width: 30%;
+  width: 40%;
   height: 60%;
   flex-direction: column;
   justify-content: space-between;
@@ -108,6 +109,15 @@ const AddTaskModal = ({ Open, data, setRefresh, typeTask }) => {
   async function handleSubmit(e) {
     e.preventDefault();
     const name = e.target[0].value;
+    let description;
+
+    if (typeTask === 'work') {
+      description = e.target[1].value;
+    } else {
+      description = e.target[3].value;
+    }
+
+    console.log(description);
 
     if (typeTask === 'work') {
       if (name === null || selectedProject === null || selectedDate === null) {
@@ -115,7 +125,7 @@ const AddTaskModal = ({ Open, data, setRefresh, typeTask }) => {
       } else {
         const type = location.substring(1);
 
-        const res = await AddTodoWork(name, type, selectedProject, piority, selectedDate);
+        const res = await AddTodoWork(name, description, type, selectedProject, piority, selectedDate);
         Open(false);
         setRefresh(true);
 
@@ -126,7 +136,7 @@ const AddTaskModal = ({ Open, data, setRefresh, typeTask }) => {
     } else {
       const type = location.substring(1);
 
-      const res = await AddTodo(name, type, piority, selectedDate);
+      const res = await AddTodo(name, description, type, piority, selectedDate);
       Open(false);
       setRefresh(true);
 
@@ -159,8 +169,8 @@ const AddTaskModal = ({ Open, data, setRefresh, typeTask }) => {
               </StyledAlert>
             ))}
           </WrapperAlert>
-
           <Input name="name" autoComplete="off" placeholder="Name task" />
+
           {typeTask === 'work' && <Select data={uniq} setSelectedProject={setSelectedProject} />}
 
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -174,6 +184,8 @@ const AddTaskModal = ({ Open, data, setRefresh, typeTask }) => {
               onChange={handleDateChange}
             />
           </MuiPickersUtilsProvider>
+
+          <TextArea rows="15" cols="30" name="description" autoComplete="off" placeholder="Description" />
 
           <ParagraphError>{error ? 'Wypełnij wszystkie pola w formularzu' : ' '}</ParagraphError>
 

@@ -8,10 +8,11 @@ export const SetTodo = async () => {
   return res;
 };
 
-export const AddTodoWork = async (name, type, project, piority, date) => {
+export const AddTodoWork = async (name, description, type, project, piority, date) => {
   const res = await axios
     .post('http://localhost:3000/todo', {
       name,
+      description,
       type,
       project,
       piority,
@@ -24,10 +25,11 @@ export const AddTodoWork = async (name, type, project, piority, date) => {
   return res;
 };
 
-export const AddTodo = async (name, type, piority, date) => {
+export const AddTodo = async (name, description, type, piority, date) => {
   const res = await axios
     .post('http://localhost:3000/todo', {
       name,
+      description,
       type,
       piority,
       date,
@@ -62,10 +64,12 @@ export const DelateTodo = async (id) => {
   return res;
 };
 
-export const EditTodo = async (id, name, piority) => {
-  const res = await axios.patch(`http://localhost:3000/todo/edit/${id}`, { name, piority }).catch((error) => {
-    console.log(error);
-  });
+export const EditTodo = async (id, name, description, piority) => {
+  const res = await axios
+    .patch(`http://localhost:3000/todo/edit/${id}`, { name, description, piority })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
 export const SetTodoToday = async (date) => {

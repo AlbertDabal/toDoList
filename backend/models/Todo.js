@@ -7,8 +7,10 @@ const TodoSchema = mongoose.Schema({
   },
   name: String,
   type: String,
+
   project: String,
   piority: String,
+  description: String,
   date: Date,
 });
 

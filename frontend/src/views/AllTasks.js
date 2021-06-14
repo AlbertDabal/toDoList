@@ -34,10 +34,12 @@ const Wrapper = styled.div`
 
 export const AllTasks = () => {
   const [data, setData] = useState(null);
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     FetchPost();
-  }, []);
+    setRefresh(false);
+  }, [refresh]);
 
   async function FetchPost() {
     const res = await SetTodo();
@@ -52,7 +54,14 @@ export const AllTasks = () => {
         {data
           ? data.map((items) => (
               // eslint-disable-next-line react/jsx-indent
-              <ItemTask name={items.name} type={items.type} project={items.project} piority={items.piority} />
+              <ItemTask
+                name={items.name}
+                type={items.type}
+                project={items.project}
+                piority={items.piority}
+                description={items.description}
+                setRefresh={setRefresh}
+              />
             ))
           : null}
       </Wrapper>

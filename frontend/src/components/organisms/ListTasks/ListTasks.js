@@ -113,6 +113,8 @@ export const ListTasks = ({ type }) => {
                 status={items.status}
                 project={items.project}
                 piority={items.piority}
+                description={items.description}
+                date={items.date}
                 // eslint-disable-next-line no-underscore-dangle
                 id={items._id}
                 setRefresh={setRefresh}

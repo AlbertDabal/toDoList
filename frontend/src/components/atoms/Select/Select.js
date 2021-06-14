@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { MdKeyboardArrowDown } from 'react-icons/md';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Input } from '../Input/Input';
@@ -45,6 +46,18 @@ const WrapperTest = styled.div`
   }
 `;
 
+const InputStyled = styled.div`
+  display: flex;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.3);
+  padding: 6px 15px;
+`;
+
+const InputSelect = styled.input`
+  outline: none;
+  width: 100%;
+  border: none;
+  font-size: ${({ theme }) => theme.fontSize.s};
+`;
 const Select = ({ data, setSelectedProject }) => {
   const node = useRef();
   const [result, setResult] = useState(data);
@@ -80,14 +93,17 @@ const Select = ({ data, setSelectedProject }) => {
 
   return (
     <Wrapper ref={node}>
-      <Input
-        name="project"
-        onChange={(e) => onTodoChange(e.target.value)}
-        placeholder="Choose project"
-        onClick={(e) => setOpen(!open)}
-        value={valueName}
-        autoComplete="off"
-      />
+      <InputStyled>
+        <InputSelect
+          name="project"
+          onChange={(e) => onTodoChange(e.target.value)}
+          placeholder="Choose project"
+          onClick={(e) => setOpen(!open)}
+          value={valueName}
+          autoComplete="off"
+        />
+        <MdKeyboardArrowDown />
+      </InputStyled>
       {open && (
         <WrapperTest>
           {result.map((items) => (

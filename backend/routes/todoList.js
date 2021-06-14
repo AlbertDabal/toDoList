@@ -33,6 +33,7 @@ router.post("/", async (req, res) => {
     type: req.body.type,
     project: req.body.project,
     piority: req.body.piority,
+    description: req.body.description,
     date: req.body.date,
   });
   try {
@@ -77,7 +78,13 @@ router.patch("/edit/:todoId", async (req, res) => {
   try {
     const updateTodo = await Todo.updateOne(
       { _id: req.params.todoId },
-      { $set: { name: req.body.name, piority: req.body.piority } }
+      {
+        $set: {
+          name: req.body.name,
+          description: req.body.description,
+          piority: req.body.piority,
+        },
+      }
     );
     res.json(updateTodo);
   } catch (err) {

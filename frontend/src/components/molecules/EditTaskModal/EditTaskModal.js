@@ -8,6 +8,9 @@ import Alert from 'components/atoms/Alert/Alert';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import { AddTodo, EditTodo } from 'api/FetchTodoAll';
 import { useLocation } from 'react-router-dom';
+import { TextArea } from 'components/atoms/TextArea/TextArea';
+import DateFnsUtils from '@date-io/date-fns';
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 
 const Wrapper = styled.div`
   position: absolute;
@@ -20,6 +23,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   padding-bottom: 80px;
+  z-index: 999;
 `;
 
 const Form = styled.form`
@@ -32,8 +36,7 @@ const Form = styled.form`
 const Modal = styled.div`
   display: flex;
   background-color: white;
-  border-radius: 30px;
-  width: 30%;
+  width: 40%;
   height: 50%;
   flex-direction: column;
   justify-content: space-between;
@@ -82,16 +85,42 @@ const StyledAlert = styled(Alert)`
   background-color: ${({ clicked }) => (clicked ? '#008cc8' : '#008cc899')};
 `;
 
-const EditTaskModal = ({ name, Open, data, setRefresh, piorityValue, setIsEdit, setIsOption, id }) => {
+const KeyboardDatePickerStyled = styled(KeyboardDatePicker)`
+  margin: 0;
+  padding: 0;
+  > div > input {
+    margin-left: 15px;
+    font-size: ${({ theme }) => theme.fontSize.s};
+  }
+
+  > div > div > button > span > svg {
+    font-size: 25px;
+  }
+`;
+
+const EditTaskModal = ({
+  name,
+  Open,
+  data,
+  setRefresh,
+  piorityValue,
+  setIsEdit,
+  setIsOption,
+  id,
+  description,
+  dateValue,
+}) => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [piority, setPiority] = useState(piorityValue);
   const location = useLocation().pathname;
   const [valueName, setValueName] = useState(name);
+  const [valueDescription, setValueDescription] = useState(description);
+  const [selectedDate, setSelectedDate] = useState(dateValue);
 
   async function handleSubmit(e) {
     e.preventDefault();
 
-    const res = await EditTodo(id, valueName, piority);
+    const res = await EditTodo(id, valueName, valueDescription, piority);
 
     setIsEdit(false);
     setIsOption(false);
@@ -107,6 +136,14 @@ const EditTaskModal = ({ name, Open, data, setRefresh, piorityValue, setIsEdit, 
   function onTodoChange(value) {
     setValueName(value);
   }
+
+  function descriptionChange(value) {
+    setValueDescription(value);
+  }
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
 
   const optionsPiority = ['low', 'medium', 'high'];
 
@@ -124,17 +161,26 @@ const EditTaskModal = ({ name, Open, data, setRefresh, piorityValue, setIsEdit, 
             ))}
           </WrapperAlert>
           <Input name="name" onChange={(e) => onTodoChange(e.target.value)} placeholder="Name task" value={valueName} />
-
-          {/* <Select value={selectedProject} onChange={handleChangeProject}>
-            <option value="" disabled selected>
-              Choose project
-            </option>
-            {uniq.map((item) => (
-              <option value={item.project}>{item.project}</option>
-            ))}
-
-            <input type="text" name="text" />
-          </Select> */}
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <KeyboardDatePickerStyled
+              keyboardIconProps={{ fontSize: '100px' }}
+              disableToolbar
+              variant="inline"
+              format="MM/dd/yyyy"
+              id="date-picker-inline"
+              value={selectedDate}
+              onChange={handleDateChange}
+            />
+          </MuiPickersUtilsProvider>
+          <TextArea
+            onChange={(e) => descriptionChange(e.target.value)}
+            rows="15"
+            cols="30"
+            name="description"
+            autoComplete="off"
+            placeholder="Description"
+            value={valueDescription}
+          />
 
           <WrapperButton>
             <Button type="submit">edit task</Button>
@@ -155,6 +201,12 @@ EditTaskModal.propTypes = {
   name: PropTypes.element.isRequired,
   piorityValue: PropTypes.element.isRequired,
   id: PropTypes.element.isRequired,
+  description: PropTypes.element,
+  dateValue: PropTypes.element.isRequired,
+};
+
+EditTaskModal.defaultProps = {
+  description: '',
 };
 
 export default EditTaskModal;

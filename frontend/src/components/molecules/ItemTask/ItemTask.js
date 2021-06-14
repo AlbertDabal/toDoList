@@ -88,7 +88,7 @@ const StyledHeader = styled(Paragraph)`
   color: ${({ theme, status }) => (status ? 'black' : theme.textColor)};
 `;
 
-const ItemTask = ({ name, type, project, piority, status, id, setRefresh }) => {
+const ItemTask = ({ name, type, project, piority, status, id, setRefresh, description, date }) => {
   const typeIcon = NavbarData.find((x) => x.type === type);
   const location = useLocation().pathname;
   const [isOption, setIsOption] = useState(false);
@@ -107,10 +107,12 @@ const ItemTask = ({ name, type, project, piority, status, id, setRefresh }) => {
         <EditTaskModal
           id={id}
           name={name}
+          description={description}
           piorityValue={piority}
           setIsEdit={setIsEdit}
           setIsOption={setIsOption}
           setRefresh={setRefresh}
+          dateValue={date}
         />
       )}
 
@@ -138,9 +140,7 @@ const ItemTask = ({ name, type, project, piority, status, id, setRefresh }) => {
         ) : (
           <StyledHeader status>{` ${name} `}</StyledHeader>
         )}
-        <StyledParagraph status>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-        </StyledParagraph>
+        <StyledParagraph status>{description}</StyledParagraph>
       </WrapperMid>
       <WrapperRight>
         <ParagraphType>{project}</ParagraphType>
@@ -160,8 +160,11 @@ ItemTask.propTypes = {
   piority: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   setRefresh: PropTypes.func.isRequired,
+  description: PropTypes.string,
+  date: PropTypes.string.isRequired,
 };
 
 ItemTask.defaultProps = {
   project: '',
+  description: '',
 };

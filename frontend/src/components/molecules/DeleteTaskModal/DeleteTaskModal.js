@@ -20,11 +20,12 @@ const Wrapper = styled.div`
 `;
 
 const Modal = styled.div`
+  z-index: 999;
   display: flex;
   background-color: white;
-  border-radius: 30px;
-  width: 30%;
-  height: 25%;
+  width: 40%;
+  height: 30%;
+  align-items: center;
   flex-direction: column;
   justify-content: space-between;
   padding: 30px;
