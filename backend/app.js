@@ -11,8 +11,11 @@ app.use(cors());
 app.use(bodyParser.json());
 //Import Routes
 const todoListRoute = require("./routes/todoList");
+const userRoute = require("./routes/auth");
 
 app.use("/todo", todoListRoute);
+
+app.use("/user", userRoute);
 
 // ROUTES
 app.get("/", (req, res) => {
