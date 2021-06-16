@@ -12,6 +12,7 @@ const TodoSchema = mongoose.Schema({
   piority: String,
   description: String,
   date: Date,
+  author: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
 });
 
 module.exports = mongoose.model("todo", TodoSchema);

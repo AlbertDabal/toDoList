@@ -6,7 +6,7 @@ const verify = require("./verifyToken");
 router.get("/", verify, async (req, res) => {
   console.log(req.user);
   try {
-    const todos = await Todo.find();
+    const todos = await Todo.find({ author: req.user });
     res.json(todos);
   } catch (err) {
     res.json({ message: err });
@@ -22,6 +22,7 @@ router.get("/today/:day", verify, async (req, res) => {
         $gte: new Date(req.params.day),
         $lt: tomorrow,
       },
+      author: req.user,
     });
     res.json(todosToday);
   } catch (err) {
@@ -37,6 +38,7 @@ router.post("/", verify, async (req, res) => {
     piority: req.body.piority,
     description: req.body.description,
     date: req.body.date,
+    author: req.user,
   });
   try {
     const savedTodo = await todo.save();
