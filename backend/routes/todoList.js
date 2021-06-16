@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const Todo = require("../models/Todo");
+const verify = require("./verifyToken");
 
-router.get("/", async (req, res) => {
+router.get("/", verify, async (req, res) => {
+  console.log(req.user);
   try {
     const todos = await Todo.find();
     res.json(todos);
@@ -11,7 +13,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/today/:day", async (req, res) => {
+router.get("/today/:day", verify, async (req, res) => {
   var tomorrow = new Date(req.params.day);
   tomorrow.setDate(tomorrow.getDate() + 1);
   try {
@@ -27,7 +29,7 @@ router.get("/today/:day", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", verify, async (req, res) => {
   const todo = new Todo({
     name: req.body.name,
     type: req.body.type,
@@ -44,7 +46,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/:todoId", async (req, res) => {
+router.get("/:todoId", verify, async (req, res) => {
   try {
     const idTodo = await Todo.findById(req.params.todoId);
     res.json(idTodo);
@@ -53,7 +55,7 @@ router.get("/:todoId", async (req, res) => {
   }
 });
 
-router.patch("/:todoId", async (req, res) => {
+router.patch("/:todoId", verify, async (req, res) => {
   try {
     const updateTodo = await Todo.updateOne(
       { _id: req.params.todoId },
@@ -65,7 +67,7 @@ router.patch("/:todoId", async (req, res) => {
   }
 });
 
-router.delete("/:todoId", async (req, res) => {
+router.delete("/:todoId", verify, async (req, res) => {
   try {
     const DeleteTodo = await Todo.deleteOne({ _id: req.params.todoId });
     res.json(DeleteTodo);
@@ -74,7 +76,7 @@ router.delete("/:todoId", async (req, res) => {
   }
 });
 
-router.patch("/edit/:todoId", async (req, res) => {
+router.patch("/edit/:todoId", verify, async (req, res) => {
   try {
     const updateTodo = await Todo.updateOne(
       { _id: req.params.todoId },
