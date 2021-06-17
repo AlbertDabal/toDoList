@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Heading from 'components/atoms/Heading/Heading';
 import Button from 'components/atoms/Button/Button';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
-import { SetLogin } from 'api/FetchLogin';
+import { SetRegister } from 'api/FetchLogin';
 import { useHistory, Link } from 'react-router-dom';
 import { routes } from 'routes';
 
@@ -51,28 +51,34 @@ const LinkStyled = styled(Link)`
   color: black;
 `;
 
-const Login = () => {
+const Register = () => {
   const [error, setError] = useState(false);
   const history = useHistory();
+  const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
   async function handleSubmit(e) {
     e.preventDefault();
 
-    const res = await SetLogin(email, password);
+    if (password.length < 8) {
+      setError('Your password must contain at least 8 characters');
+    } else {
+      const res = await SetRegister(name, email, password);
 
-    if (!res.data) {
-      setError(res.toString());
-    } else if (res.data) {
-      history.push('/dashboard');
+      if (!res.data) {
+        setError(res.toString());
+      } else if (res.data) {
+        history.push('/login');
+      }
     }
   }
   return (
     <Wrapper>
       <Modal>
-        <Heading>Login</Heading>
+        <Heading>Register</Heading>
         <Form onSubmit={handleSubmit}>
+          <Input onChange={(e) => setName(e.target.value)} autoComplete="off" placeholder="Name" />
           <Input onChange={(e) => setEmail(e.target.value)} autoComplete="off" placeholder="Email" />
           <Input
             type="password"
@@ -81,15 +87,15 @@ const Login = () => {
             placeholder="Password"
           />
           {error ? <Paragraph style={{ color: 'red' }}>{error}</Paragraph> : <Paragraph>&nbsp;</Paragraph>}
-          <Button type="submit">Login</Button>
+          <Button type="submit">Register</Button>
         </Form>
         <WrapperLink>
-          <Paragraph>Dont have an account?&nbsp;</Paragraph>
-          <LinkStyled to={routes.register}>Sign Up</LinkStyled>
+          <Paragraph>Do you have an account?&nbsp; </Paragraph>
+          <LinkStyled to={routes.login}>Sign In</LinkStyled>
         </WrapperLink>
       </Modal>
     </Wrapper>
   );
 };
 
-export default Login;
+export default Register;

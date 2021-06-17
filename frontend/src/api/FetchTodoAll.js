@@ -1,13 +1,10 @@
 import axios from 'axios';
 
 export const SetTodo = async () => {
+  const token = sessionStorage.getItem('auth-token');
   const res = await axios
     .get('http://localhost:3000/todo', {
-      headers: {
-        'auth-token':
-          // eslint-disable-next-line max-len
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGM5ZmMxZjU4ZDU4ODQ5YTgxZDU4YWIiLCJpYXQiOjE2MjM4NTE5MzR9.RhixS8Gtmnt681_cVxRwCmnlacty_S7cukDx2QQcD68',
-      },
+      headers: { 'auth-token': token },
     })
     .catch((error) => {
       console.log(error);
@@ -17,31 +14,47 @@ export const SetTodo = async () => {
 };
 
 export const AddTodoWork = async (name, description, type, project, piority, date) => {
+  const token = sessionStorage.getItem('auth-token');
   const res = await axios
-    .post('http://localhost:3000/todo', {
-      name,
-      description,
-      type,
-      project,
-      piority,
-      date,
-    })
+    .post(
+      'http://localhost:3000/todo',
+      {
+        name,
+        description,
+        type,
+        project,
+        piority,
+        date,
+      },
+      {
+        headers: { 'auth-token': token },
+      },
+    )
     .catch((error) => {
       console.log(error);
     });
+
+  console.log(res);
 
   return res;
 };
 
 export const AddTodo = async (name, description, type, piority, date) => {
+  const token = sessionStorage.getItem('auth-token');
   const res = await axios
-    .post('http://localhost:3000/todo', {
-      name,
-      description,
-      type,
-      piority,
-      date,
-    })
+    .post(
+      'http://localhost:3000/todo',
+      {
+        name,
+        description,
+        type,
+        piority,
+        date,
+      },
+      {
+        headers: { 'auth-token': token },
+      },
+    )
     .catch((error) => {
       console.log(error);
     });
@@ -50,10 +63,17 @@ export const AddTodo = async (name, description, type, piority, date) => {
 };
 
 export const DoneTodo = async (id) => {
+  const token = sessionStorage.getItem('auth-token');
   const res = await axios
-    .patch(`http://localhost:3000/todo/${id}`, {
-      type: false,
-    })
+    .patch(
+      `http://localhost:3000/todo/${id}`,
+      {
+        type: false,
+      },
+      {
+        headers: { 'auth-token': token },
+      },
+    )
     .catch((error) => {
       console.log(error);
     });
@@ -62,10 +82,17 @@ export const DoneTodo = async (id) => {
 };
 
 export const DelateTodo = async (id) => {
+  const token = sessionStorage.getItem('auth-token');
   const res = await axios
-    .delete(`http://localhost:3000/todo/${id}`, {
-      type: false,
-    })
+    .delete(
+      `http://localhost:3000/todo/${id}`,
+      {
+        type: false,
+      },
+      {
+        headers: { 'auth-token': token },
+      },
+    )
     .catch((error) => {
       console.log(error);
     });
@@ -73,22 +100,25 @@ export const DelateTodo = async (id) => {
 };
 
 export const EditTodo = async (id, name, description, piority) => {
+  const token = sessionStorage.getItem('auth-token');
   const res = await axios
-    .patch(`http://localhost:3000/todo/edit/${id}`, { name, description, piority })
+    .patch(
+      `http://localhost:3000/todo/edit/${id}`,
+      { name, description, piority },
+      {
+        headers: { 'auth-token': token },
+      },
+    )
     .catch((error) => {
       console.log(error);
     });
 };
 
 export const SetTodoToday = async (date) => {
+  const token = sessionStorage.getItem('auth-token');
   const res = await axios
     .get(`http://localhost:3000/todo/today/${date}`, {
-      headers: {
-        // eslint-disable-next-line max-len
-        'auth-token':
-          // eslint-disable-next-line max-len
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGM5ZmMxZjU4ZDU4ODQ5YTgxZDU4YWIiLCJpYXQiOjE2MjM4NTE5MzR9.RhixS8Gtmnt681_cVxRwCmnlacty_S7cukDx2QQcD68',
-      },
+      headers: { 'auth-token': token },
     })
     .catch((error) => {
       console.log(error);

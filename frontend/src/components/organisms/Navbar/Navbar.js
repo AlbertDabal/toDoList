@@ -1,6 +1,7 @@
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import React from 'react';
 import styled from 'styled-components';
+import { Link, useHistory } from 'react-router-dom';
 import { BsArrowRight } from 'react-icons/bs';
 import Heading from '../../atoms/Heading/Heading';
 import NavbarItem from './NavbarItem';
@@ -11,6 +12,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   border-right: 0.5px solid #9a9a9a;
 
   background-color: white;
@@ -23,14 +25,14 @@ const Logo = styled.div`
   flex-direction: row;
 
   > h1 {
-    font-size: 26px;
+    font-size: 35px;
     font-weight: 600;
-    color: black;
   }
 `;
 
-const Logout = styled.div`
+const LogoutStyled = styled.div`
   margin-top: 22vh;
+  margin-bottom: 30px;
   display: flex;
   align-items: center;
   font-size: ${({ theme }) => theme.fontSize.s};
@@ -48,20 +50,32 @@ const StyledHeading = styled(Heading)`
   margin: 10px 0px;
 `;
 
-const Navbar = () => (
-  <Wrapper>
-    <Logo>
-      <h1>Todo</h1>
-      <h1>App</h1>
-    </Logo>
+const LogoText = styled.h1`
+  color: ${({ theme }) => theme.themeColor};
+`;
 
-    <NavbarItem />
+const Navbar = () => {
+  const history = useHistory();
 
-    <Logout>
-      <span>Logout</span>
-      <BsArrowRight />
-    </Logout>
-  </Wrapper>
-);
+  const Logout = () => {
+    sessionStorage.clear();
+    history.push('/');
+  };
+  return (
+    <Wrapper>
+      <Logo>
+        <h1>Todo</h1>
+        <LogoText>App</LogoText>
+      </Logo>
+
+      <NavbarItem />
+
+      <LogoutStyled onClick={() => Logout()}>
+        <span>Logout</span>
+        <BsArrowRight />
+      </LogoutStyled>
+    </Wrapper>
+  );
+};
 
 export default Navbar;

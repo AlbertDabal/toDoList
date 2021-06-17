@@ -1,5 +1,5 @@
 import React from 'react';
-import { MdWork, MdAccountBalance, MdFolder, MdInsertChart, MdSettings } from 'react-icons/md';
+import { MdWork, MdAccountBalance, MdFolder, MdInsertChart, MdSettings, MdHome } from 'react-icons/md';
 import { IoMdFitness } from 'react-icons/io';
 import { IoCalendarSharp } from 'react-icons/io5';
 import { BiTask } from 'react-icons/bi';
@@ -8,9 +8,9 @@ import { routes } from 'routes';
 const NavbarData = [
   {
     title: 'Dashboard',
-    icon: <MdWork />,
-    path: routes.work,
-    type: 'work',
+    icon: <MdHome />,
+    path: routes.dashboard,
+    type: 'dashboard',
   },
   {
     title: 'Work',

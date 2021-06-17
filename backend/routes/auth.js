@@ -7,7 +7,7 @@ require("dotenv/config");
 
 router.post("/register", async (req, res) => {
   const emailExist = await User.findOne({ email: req.body.email });
-  if (emailExist) return res.send("Email alredy exists");
+  if (emailExist) return res.status(400).send("Email alredy exists");
 
   const salt = await bcrypt.genSalt(10);
   const hashPassword = await bcrypt.hash(req.body.password, salt);
@@ -34,7 +34,10 @@ router.post("/login", async (req, res) => {
 
   const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
 
-  res.header("auth-token", token).status(200).send(token);
+  res
+    .header("auth-token", token)
+    .status(200)
+    .send({ token: token, name: user.name });
 });
 
 module.exports = router;

@@ -7,11 +7,7 @@ export const SetRegister = async (name, email, password) => {
       email,
       password,
     })
-    .catch((error) => {
-      console.log(error);
-    });
-
-  sessionStorage.setItem('auth-token', res);
+    .catch((error) => error.response.data);
 
   return res;
 };
@@ -25,7 +21,9 @@ export const SetLogin = async (email, password) => {
     .catch((error) => error.response.data);
 
   if (res.status === 200) {
-    sessionStorage.setItem('auth-token', res.data);
+    sessionStorage.setItem('isAuth', true);
+    sessionStorage.setItem('auth-token', res.data.token);
+    sessionStorage.setItem('user', res.data.name);
   }
   return res;
 };

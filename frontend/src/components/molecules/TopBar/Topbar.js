@@ -43,7 +43,7 @@ const Topbar = () => {
         <Heading>{pathName.title}</Heading>
       </WrapperLeft>
       <WrapperRight>
-        <Heading>Marek</Heading>
+        <Heading>{`Welcome ${sessionStorage.getItem('user')}`}</Heading>
       </WrapperRight>
     </Wrapper>
   );
