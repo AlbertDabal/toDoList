@@ -1,6 +1,9 @@
 import Heading from 'components/atoms/Heading/Heading';
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { routes } from 'routes';
+import Button from 'components/atoms/Button/Button';
 
 const Logo = styled.div`
   margin: 50px;
@@ -18,5 +21,8 @@ export const Home = () => (
   <Logo>
     <h1>Todo</h1>
     <h1>App</h1>
+    <Button>
+      <Link to={routes.login}>Login</Link>
+    </Button>
   </Logo>
 );

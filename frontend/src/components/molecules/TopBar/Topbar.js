@@ -43,7 +43,7 @@ const Topbar = () => {
         <Heading>{pathName.title}</Heading>
       </WrapperLeft>
       <WrapperRight>
-        <Heading>Marek Kowalski</Heading>
+        <Heading>Marek</Heading>
       </WrapperRight>
     </Wrapper>
   );

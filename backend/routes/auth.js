@@ -27,14 +27,14 @@ router.post("/register", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
-  if (!user) return res.send("Email or password is wrong");
+  if (!user) return res.status(400).send("Email or password is wrong");
 
   const validPass = await bcrypt.compare(req.body.password, user.password);
-  if (!validPass) return res.send("Invalid password");
+  if (!validPass) return res.status(400).send("Invalid password");
 
   const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
 
-  res.header("auth-token", token).send(token);
+  res.header("auth-token", token).status(200).send(token);
 });
 
 module.exports = router;

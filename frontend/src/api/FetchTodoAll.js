@@ -1,9 +1,17 @@
 import axios from 'axios';
 
 export const SetTodo = async () => {
-  const res = await axios.get('http://localhost:3000/todo').catch((error) => {
-    console.log(error);
-  });
+  const res = await axios
+    .get('http://localhost:3000/todo', {
+      headers: {
+        'auth-token':
+          // eslint-disable-next-line max-len
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGM5ZmMxZjU4ZDU4ODQ5YTgxZDU4YWIiLCJpYXQiOjE2MjM4NTE5MzR9.RhixS8Gtmnt681_cVxRwCmnlacty_S7cukDx2QQcD68',
+      },
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 
   return res;
 };
@@ -73,9 +81,18 @@ export const EditTodo = async (id, name, description, piority) => {
 };
 
 export const SetTodoToday = async (date) => {
-  const res = await axios.get(`http://localhost:3000/todo/today/${date}`).catch((error) => {
-    console.log(error);
-  });
+  const res = await axios
+    .get(`http://localhost:3000/todo/today/${date}`, {
+      headers: {
+        // eslint-disable-next-line max-len
+        'auth-token':
+          // eslint-disable-next-line max-len
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGM5ZmMxZjU4ZDU4ODQ5YTgxZDU4YWIiLCJpYXQiOjE2MjM4NTE5MzR9.RhixS8Gtmnt681_cVxRwCmnlacty_S7cukDx2QQcD68',
+      },
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 
   return res;
 };

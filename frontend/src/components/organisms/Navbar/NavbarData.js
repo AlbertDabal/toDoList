@@ -7,6 +7,12 @@ import { routes } from 'routes';
 
 const NavbarData = [
   {
+    title: 'Dashboard',
+    icon: <MdWork />,
+    path: routes.work,
+    type: 'work',
+  },
+  {
     title: 'Work',
     icon: <MdWork />,
     path: routes.work,
@@ -31,16 +37,16 @@ const NavbarData = [
     type: 'otherTask',
   },
 
-  {
-    title: 'Statistic',
-    icon: <MdInsertChart />,
-    path: routes.statistic,
-  },
-  {
-    title: 'Calendar',
-    icon: <IoCalendarSharp />,
-    path: routes.editCalendar,
-  },
+  // {
+  //   title: 'Statistic',
+  //   icon: <MdInsertChart />,
+  //   path: routes.statistic,
+  // },
+  // {
+  //   title: 'Calendar',
+  //   icon: <IoCalendarSharp />,
+  //   path: routes.editCalendar,
+  // },
   {
     title: 'All tasks',
     icon: <BiTask />,

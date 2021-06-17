@@ -11,6 +11,7 @@ import { AllTasks } from './AllTasks';
 import { Personal } from './Personal';
 import { Fitness } from './Fitness';
 import { OtherTask } from './OtherTask';
+import Login from './Login';
 
 const Root = () => (
   <ThemeProvider theme={theme}>
@@ -18,6 +19,7 @@ const Root = () => (
     <Router>
       <Switch>
         <Route exact path={routes.test} component={Test} />
+        <Route exact path={routes.login} component={Login} />
         <Route exact path={routes.dashboard} component={Home} />
         <Route exact path={routes.work} component={Work} />
         <Route exact path={routes.personal} component={Personal} />
