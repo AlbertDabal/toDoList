@@ -26,7 +26,8 @@ const Main = styled.div``;
 
 const Wrapper = styled.div`
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
+  overflow-y: scroll;
   display: flex;
   height: 68vh;
 

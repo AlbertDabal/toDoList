@@ -20,6 +20,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   height: 50%;
   padding: 30px;
+  margin-left: 15px;
 
   margin-bottom: 10px;
 `;

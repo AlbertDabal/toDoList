@@ -84,15 +84,9 @@ export const DoneTodo = async (id) => {
 export const DelateTodo = async (id) => {
   const token = sessionStorage.getItem('auth-token');
   const res = await axios
-    .delete(
-      `http://localhost:3000/todo/${id}`,
-      {
-        type: false,
-      },
-      {
-        headers: { 'auth-token': token },
-      },
-    )
+    .delete(`http://localhost:3000/todo/${id}`, {
+      headers: { 'auth-token': token },
+    })
     .catch((error) => {
       console.log(error);
     });
