@@ -33,7 +33,7 @@ const SvgContainer = styled.div`
 const Topbar = () => {
   const location = useLocation().pathname;
   const pathName = NavbarData.find((x) => x.path === location);
-  console.log(pathName);
+  // console.log(pathName);
   // const data = pathName.filter((items) => items);
 
   return (

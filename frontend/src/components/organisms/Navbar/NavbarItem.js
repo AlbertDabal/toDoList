@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import NavbarData from './NavbarData';
@@ -34,16 +34,21 @@ const SvgContainer = styled.div`
   }
 `;
 
-const NavbarItem = ({ item }) => (
-  <Wrapper>
-    {NavbarData.map((items) => (
-      <StyledLink to={items.path}>
-        <SvgContainer>{items.icon}</SvgContainer>
-        <Paragraph style={{ fontWeight: '600' }}>{items.title}</Paragraph>
-      </StyledLink>
-    ))}
-  </Wrapper>
-);
+const NavbarItem = ({ item }) => {
+  const location = useLocation().pathname;
+  const pathName = NavbarData.find((x) => x.path === location);
+  console.log(pathName);
+  return (
+    <Wrapper>
+      {NavbarData.map((items) => (
+        <StyledLink style={{ color: pathName.path === items.path && 'black' }} to={items.path}>
+          <SvgContainer>{items.icon}</SvgContainer>
+          <Paragraph>{items.title}</Paragraph>
+        </StyledLink>
+      ))}
+    </Wrapper>
+  );
+};
 
 export default NavbarItem;
 

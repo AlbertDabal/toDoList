@@ -4,7 +4,6 @@ const Todo = require("../models/Todo");
 const verify = require("./verifyToken");
 
 router.get("/", verify, async (req, res) => {
-  console.log(req.user);
   try {
     const todos = await Todo.find({ author: req.user });
     res.json(todos);

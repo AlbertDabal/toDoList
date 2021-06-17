@@ -84,7 +84,7 @@ const Login = () => {
           <Button type="submit">Login</Button>
         </Form>
         <WrapperLink>
-          <Paragraph>Dont have an account?&nbsp;</Paragraph>
+          <Paragraph>Don&apos;t have an account?&nbsp;</Paragraph>
           <LinkStyled to={routes.register}>Sign Up</LinkStyled>
         </WrapperLink>
       </Modal>

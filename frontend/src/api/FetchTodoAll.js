@@ -62,13 +62,13 @@ export const AddTodo = async (name, description, type, piority, date) => {
   return res;
 };
 
-export const DoneTodo = async (id) => {
+export const DoneTodo = async (id, status) => {
   const token = sessionStorage.getItem('auth-token');
   const res = await axios
     .patch(
       `http://localhost:3000/todo/${id}`,
       {
-        type: false,
+        status,
       },
       {
         headers: { 'auth-token': token },

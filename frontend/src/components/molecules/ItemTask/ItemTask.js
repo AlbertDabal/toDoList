@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { MdCheckBoxOutlineBlank, MdMoreVert, MdCheckBox, MdCreate, MdClear, MdUndo, MdFolder } from 'react-icons/md';
 import NavbarData from 'components/organisms/Navbar/NavbarData';
 import { useLocation } from 'react-router-dom';
-import { DoneTodo } from 'api/FetchTodoAll';
+import { DoneTodo, UnDoneTodo } from 'api/FetchTodoAll';
 import DeleteTaskModal from '../DeleteTaskModal/DeleteTaskModal';
 import EditTaskModal from '../EditTaskModal/EditTaskModal';
 
@@ -18,7 +18,7 @@ const Wrapper = styled.div`
   width: 32%;
   justify-content: space-between;
   flex-direction: column;
-  height: 50%;
+  height: 47%;
   padding: 30px;
   margin-left: 15px;
 
@@ -97,7 +97,12 @@ const ItemTask = ({ name, type, project, piority, status, id, setRefresh, descri
   const [isEdit, setIsEdit] = useState(false);
 
   async function Done() {
-    const res = await DoneTodo(id);
+    const res = await DoneTodo(id, false);
+    setRefresh(true);
+  }
+
+  async function UnDone() {
+    const res = await DoneTodo(id, true);
     setRefresh(true);
   }
 
@@ -118,10 +123,11 @@ const ItemTask = ({ name, type, project, piority, status, id, setRefresh, descri
       )}
 
       <WrapperTop>
-        {console.log(typeIcon)}
         {location === '/allTasks' && <SvgContainer>{typeIcon.icon}</SvgContainer>}
         {location !== '/allTasks' && (
-          <SvgContainer>{status ? <MdCheckBoxOutlineBlank onClick={() => Done()} /> : <MdCheckBox />}</SvgContainer>
+          <SvgContainer>
+            {status ? <MdCheckBoxOutlineBlank onClick={() => Done()} /> : <MdCheckBox onClick={() => UnDone()} />}
+          </SvgContainer>
         )}
 
         {!isOption ? (

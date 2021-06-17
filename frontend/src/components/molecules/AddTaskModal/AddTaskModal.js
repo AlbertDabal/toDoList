@@ -112,7 +112,7 @@ const AddTaskModal = ({ Open, data, setRefresh, typeTask }) => {
     let description;
 
     if (typeTask === 'work') {
-      description = e.target[1].value;
+      description = e.target[4].value;
     } else {
       description = e.target[3].value;
     }

@@ -7,10 +7,10 @@ import { DashboardTemplate } from '../template/DashboardTemplate';
 
 const Wrapper = styled.div`
   flex-wrap: wrap;
-  justify-content: space-between;
   display: flex;
-  height: 80vh;
+  height: 85vh;
   overflow-y: scroll;
+  justify-content: flex-start;
 
   padding-top: 30px;
 
@@ -44,13 +44,11 @@ export const AllTasks = () => {
   async function FetchPost() {
     const res = await SetTodo();
     setData(res.data);
-    console.log(data);
   }
 
   return (
     <DashboardTemplate>
       <Wrapper>
-        {console.log(data)}
         {data
           ? data.map((items) => (
               // eslint-disable-next-line react/jsx-indent

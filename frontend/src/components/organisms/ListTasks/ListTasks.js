@@ -29,9 +29,9 @@ const Wrapper = styled.div`
   justify-content: flex-start;
   overflow-y: scroll;
   display: flex;
-  height: 68vh;
+  height: 74vh;
 
-  padding-top: 30px;
+  margin-top: 20px;
 
   ::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
