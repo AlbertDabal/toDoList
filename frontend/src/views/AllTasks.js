@@ -59,6 +59,9 @@ export const AllTasks = () => {
                 piority={items.piority}
                 description={items.description}
                 setRefresh={setRefresh}
+                // eslint-disable-next-line no-underscore-dangle
+                id={items._id}
+                date={items.date}
               />
             ))
           : null}

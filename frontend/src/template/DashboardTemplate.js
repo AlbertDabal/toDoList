@@ -6,7 +6,6 @@ import Topbar from 'components/molecules/TopBar/Topbar';
 
 const Wrapper = styled.div`
   display: flex;
-  background-color: #e5e5e5;
 `;
 
 const MainWrapper = styled.div`

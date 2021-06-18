@@ -13,7 +13,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  border-right: 0.5px solid #9a9a9a;
+  box-shadow: 1px 1px 4px rgba(170, 170, 170, 0.64);
 
   background-color: white;
 `;
