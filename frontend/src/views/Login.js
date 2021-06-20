@@ -72,6 +72,7 @@ const Login = () => {
     <Wrapper>
       <Modal>
         <Heading>Login</Heading>
+        <Paragraph style={{ color: 'green' }}>Email test1 password test</Paragraph>
         <Form onSubmit={handleSubmit}>
           <Input onChange={(e) => setEmail(e.target.value)} autoComplete="off" placeholder="Email" />
           <Input
