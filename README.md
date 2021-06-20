@@ -12,7 +12,7 @@ I used MERN STACK which comprises 4 technologies which name are: MongoDB, Expres
 
 ## Site project
 
-http://localhost:3001/
+https://secure-journey-74242.herokuapp.com/
 
 ## Installation
 
