@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const SetRegister = async (name, email, password) => {
   const res = await axios
-    .post('http://localhost:3000/user/register', {
+    .post(`${process.env.REACT_APP_ADDRESS}/user/register`, {
       name,
       email,
       password,
@@ -14,7 +14,7 @@ export const SetRegister = async (name, email, password) => {
 
 export const SetLogin = async (email, password) => {
   const res = await axios
-    .post('http://localhost:3000/user/login', {
+    .post(`${process.env.REACT_APP_ADDRESS}/user/login`, {
       email,
       password,
     })

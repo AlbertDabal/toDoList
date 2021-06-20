@@ -3,7 +3,7 @@ import axios from 'axios';
 export const SetTodo = async () => {
   const token = sessionStorage.getItem('auth-token');
   const res = await axios
-    .get('http://localhost:3000/todo', {
+    .get(`${process.env.REACT_APP_ADDRESS}/todo`, {
       headers: { 'auth-token': token },
     })
     .catch((error) => {
@@ -17,7 +17,7 @@ export const AddTodoWork = async (name, description, type, project, piority, dat
   const token = sessionStorage.getItem('auth-token');
   const res = await axios
     .post(
-      'http://localhost:3000/todo',
+      `${process.env.REACT_APP_ADDRESS}/todo`,
       {
         name,
         description,
@@ -43,7 +43,7 @@ export const AddTodo = async (name, description, type, piority, date) => {
   const token = sessionStorage.getItem('auth-token');
   const res = await axios
     .post(
-      'http://localhost:3000/todo',
+      `${process.env.REACT_APP_ADDRESS}/todo`,
       {
         name,
         description,
@@ -66,7 +66,7 @@ export const DoneTodo = async (id, status) => {
   const token = sessionStorage.getItem('auth-token');
   const res = await axios
     .patch(
-      `http://localhost:3000/todo/${id}`,
+      `${process.env.REACT_APP_ADDRESS}/${id}`,
       {
         status,
       },
@@ -84,7 +84,7 @@ export const DoneTodo = async (id, status) => {
 export const DelateTodo = async (id) => {
   const token = sessionStorage.getItem('auth-token');
   const res = await axios
-    .delete(`http://localhost:3000/todo/${id}`, {
+    .delete(`${process.env.REACT_APP_ADDRESS}/${id}`, {
       headers: { 'auth-token': token },
     })
     .catch((error) => {
@@ -97,7 +97,7 @@ export const EditTodo = async (id, name, description, piority) => {
   const token = sessionStorage.getItem('auth-token');
   const res = await axios
     .patch(
-      `http://localhost:3000/todo/edit/${id}`,
+      `${process.env.REACT_APP_ADDRESS}/todo/edit/${id}`,
       { name, description, piority },
       {
         headers: { 'auth-token': token },
@@ -111,7 +111,7 @@ export const EditTodo = async (id, name, description, piority) => {
 export const SetTodoToday = async (date) => {
   const token = sessionStorage.getItem('auth-token');
   const res = await axios
-    .get(`http://localhost:3000/todo/today/${date}`, {
+    .get(`${process.env.REACT_APP_ADDRESS}/todo/today/${date}`, {
       headers: { 'auth-token': token },
     })
     .catch((error) => {
