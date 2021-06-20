@@ -4,7 +4,7 @@ This site is a basic task organizer. You can write and group each task with indi
 
 ## Features
 
-This application allows you to login on your own profile. You can add your own tasks in a specific day. Tasks are grouped by type( work,personal,fitness, other). In application we have the ability to assign a task to a project. As additional activities, You can overwrite the task at any time, delete and finish it.
+This application allows you to login on your own profile. You can add your own tasks in a specific day. Tasks are grouped by type (work, personal, fitness, other). In application we have the ability to assign a task to a project. As additional activities, You can overwrite the task at any time, delete and finish it.
 
 ## Tech
 
@@ -24,6 +24,7 @@ npm i
 ```
 
 Create mongodb cluster on https://www.mongodb.com/
+
 Add file .env on folder backend
 
 ```
