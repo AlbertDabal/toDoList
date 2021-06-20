@@ -1,4 +1,4 @@
-# What is this aplication
+# What is this application
 
 This site is a basic task organizer. You can write and group each task with individual category and dates. It will help you manage all your work everyday.
 
