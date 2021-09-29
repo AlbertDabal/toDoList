@@ -103,7 +103,7 @@ export const Home = () => (
         help you manage all your works on everyday.
       </Paragraph>
       <StyledButton>
-        <a href="https://github.com/AlbertDabal/Program_do_zarzadzania_eventow" target="__blank">
+        <a href="https://github.com/AlbertDabal/toDoList" target="__blank">
           Repo this Project
         </a>
       </StyledButton>
