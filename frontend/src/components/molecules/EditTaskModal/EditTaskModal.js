@@ -6,8 +6,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Alert from 'components/atoms/Alert/Alert';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
-import { AddTodo, EditTodo } from 'api/FetchTodoAll';
-import { useLocation } from 'react-router-dom';
+import { EditTodo } from 'api/FetchTodoAll';
 import { TextArea } from 'components/atoms/TextArea/TextArea';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
@@ -41,16 +40,6 @@ const Modal = styled.div`
   flex-direction: column;
   justify-content: space-between;
   padding: 30px;
-`;
-
-const Select = styled.select`
-  font-size: ${({ theme }) => theme.fontSize.s};
-  border: none;
-  border-bottom: 0.5px solid rgba(0, 0, 0, 0.3);
-  padding: 5px 10px;
-  outline: none;
-  width: 100%;
-  margin-bottom: 20px;
 `;
 
 const StyledParagraph = styled(Paragraph)`
@@ -110,9 +99,7 @@ const EditTaskModal = ({
   description,
   dateValue,
 }) => {
-  const [selectedProject, setSelectedProject] = useState(null);
   const [piority, setPiority] = useState(piorityValue);
-  const location = useLocation().pathname;
   const [valueName, setValueName] = useState(name);
   const [valueDescription, setValueDescription] = useState(description);
   const [selectedDate, setSelectedDate] = useState(dateValue);
@@ -127,10 +114,6 @@ const EditTaskModal = ({
     setRefresh(true);
 
     return res;
-  }
-
-  function handleChangeProject(event) {
-    setSelectedProject(event.target.value);
   }
 
   function onTodoChange(value) {

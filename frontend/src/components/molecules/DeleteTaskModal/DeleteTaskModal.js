@@ -49,6 +49,7 @@ const StyledParagraph = styled(Paragraph)`
 const DeleteTaskModal = ({ setIsDelete, id, setRefresh }) => {
   async function Delete() {
     const res = await DelateTodo(id);
+    console.log(res);
     setIsDelete(false);
     setRefresh(true);
   }

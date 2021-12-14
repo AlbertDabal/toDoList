@@ -1,5 +1,4 @@
 import React from 'react';
-import { ListTasks } from 'components/organisms/ListTasks/ListTasks';
 import styled from 'styled-components';
 import Heading from 'components/atoms/Heading/Heading';
 import { DashboardTemplate } from '../template/DashboardTemplate';

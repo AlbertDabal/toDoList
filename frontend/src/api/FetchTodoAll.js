@@ -106,6 +106,8 @@ export const EditTodo = async (id, name, description, piority) => {
     .catch((error) => {
       console.log(error);
     });
+
+  return res;
 };
 
 export const SetTodoToday = async (date) => {

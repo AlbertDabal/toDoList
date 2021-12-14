@@ -3,7 +3,6 @@ import Heading from 'components/atoms/Heading/Heading';
 import { Input } from 'components/atoms/Input/Input';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-
 import Alert from 'components/atoms/Alert/Alert';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import { AddTodoWork, AddTodo } from 'api/FetchTodoAll';
@@ -11,8 +10,7 @@ import { useLocation } from 'react-router-dom';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import Select from 'components/atoms/Select/Select';
-import { createMuiTheme } from '@material-ui/core/styles';
-import styled, { ThemeProvider } from 'styled-components';
+import styled from 'styled-components';
 import { TextArea } from 'components/atoms/TextArea/TextArea';
 
 const Wrapper = styled.div`
@@ -147,10 +145,6 @@ const AddTaskModal = ({ Open, data, setRefresh, typeTask }) => {
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
-
-  function handleChangeProject(event) {
-    setSelectedProject(event.target.value);
-  }
 
   const optionsPiority = ['low', 'medium', 'high'];
 

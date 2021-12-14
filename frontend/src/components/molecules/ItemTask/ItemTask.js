@@ -3,10 +3,10 @@ import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { MdCheckBoxOutlineBlank, MdMoreVert, MdCheckBox, MdCreate, MdClear, MdUndo, MdFolder } from 'react-icons/md';
+import { MdCheckBoxOutlineBlank, MdMoreVert, MdCheckBox, MdCreate, MdClear, MdUndo } from 'react-icons/md';
 import NavbarData from 'components/organisms/Navbar/NavbarData';
 import { useLocation } from 'react-router-dom';
-import { DoneTodo, UnDoneTodo } from 'api/FetchTodoAll';
+import { DoneTodo } from 'api/FetchTodoAll';
 import DeleteTaskModal from '../DeleteTaskModal/DeleteTaskModal';
 import EditTaskModal from '../EditTaskModal/EditTaskModal';
 
@@ -29,11 +29,6 @@ const ParagraphType = styled(Paragraph)`
   color: ${({ theme }) => theme.textColor};
   font-weight: 700;
   text-transform: capitalize;
-`;
-
-const Checkbox = styled.input`
-  width: 20px;
-  height: 20px;
 `;
 
 const SvgContainer = styled.div`
@@ -98,11 +93,13 @@ const ItemTask = ({ name, type, project, piority, status, id, setRefresh, descri
 
   async function Done() {
     const res = await DoneTodo(id, false);
+    console.log(res);
     setRefresh(true);
   }
 
   async function UnDone() {
     const res = await DoneTodo(id, true);
+    console.log(res);
     setRefresh(true);
   }
 

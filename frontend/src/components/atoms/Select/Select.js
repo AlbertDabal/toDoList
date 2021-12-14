@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Input } from '../Input/Input';
 import Paragraph from '../Paragraph/Paragraph';
 
 const Wrapper = styled.div`

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import Heading from 'components/atoms/Heading/Heading';
 import React from 'react';
 import styled from 'styled-components';

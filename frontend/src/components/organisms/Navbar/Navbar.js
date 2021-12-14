@@ -1,9 +1,7 @@
-import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import React from 'react';
 import styled from 'styled-components';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { BsArrowRight } from 'react-icons/bs';
-import Heading from '../../atoms/Heading/Heading';
 import NavbarItem from './NavbarItem';
 
 const Wrapper = styled.div`
@@ -43,11 +41,6 @@ const LogoutStyled = styled.div`
     margin-left: 10px;
     font-size: 26px;
   }
-`;
-
-const StyledHeading = styled(Heading)`
-  color: black;
-  margin: 10px 0px;
 `;
 
 const LogoText = styled.h1`

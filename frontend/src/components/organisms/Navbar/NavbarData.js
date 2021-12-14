@@ -1,7 +1,6 @@
 import React from 'react';
-import { MdWork, MdAccountBalance, MdFolder, MdInsertChart, MdSettings, MdHome } from 'react-icons/md';
+import { MdWork, MdAccountBalance, MdFolder, MdHome } from 'react-icons/md';
 import { IoMdFitness } from 'react-icons/io';
-import { IoCalendarSharp } from 'react-icons/io5';
 import { BiTask } from 'react-icons/bi';
 import { routes } from 'routes';
 

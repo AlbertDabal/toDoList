@@ -1,17 +1,12 @@
-import { SetTodo, SetTodoToday } from 'api/FetchTodoAll';
-import Heading from 'components/atoms/Heading/Heading';
+import { SetTodoToday } from 'api/FetchTodoAll';
 import ItemTask from 'components/molecules/ItemTask/ItemTask';
 import React, { useEffect, useState } from 'react';
 import Button from 'components/atoms/Button/Button';
 import AddTaskModal from 'components/molecules/AddTaskModal/AddTaskModal';
-import Paragraph from 'components/atoms/Paragraph/Paragraph';
-import { createMuiTheme } from '@material-ui/core/styles';
-import styled, { ThemeProvider } from 'styled-components';
+import styled from 'styled-components';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import PropTypes from 'prop-types';
-
-const HeadingMotivation = styled(Heading)``;
 
 const Header = styled.div`
   padding: 20px 20px;
@@ -71,16 +66,16 @@ export const ListTasks = ({ type }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   useEffect(() => {
+    async function FetchPost() {
+      const date = selectedDate.toISOString().substr(0, 10);
+      const res = await SetTodoToday(date);
+
+      setData(res.data.filter((item) => item.type === type));
+    }
+
     FetchPost();
     setRefresh(false);
-  }, [refresh]);
-
-  async function FetchPost() {
-    const date = selectedDate.toISOString().substr(0, 10);
-    const res = await SetTodoToday(date);
-
-    setData(res.data.filter((item) => item.type === type));
-  }
+  }, [refresh, selectedDate, type]);
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
